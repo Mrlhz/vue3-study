@@ -11,7 +11,7 @@
     <p>{{ message }}</p>
     <button v-on:click="reverseMessage">逆转消息</button>
     <button @click="reverseMessage">逆转消息</button>
-    <span v-bind:title="time">
+    <span :title="time">
         鼠标悬停几秒钟查看此处动态绑定的提示信息
     </span>
     <div>
@@ -21,10 +21,10 @@
         </ol>
         <ol>
             <todo-item
-                    v-for="(g, index) in groceryList"
-                    v-bind:list="g"
+                    v-for="(grocery, index) in groceryList"
+                    v-bind:list="grocery"
                     v-bind:index="index"
-                    v-bind:key="g.id"
+                    v-bind:key="grocery.id"
                     @delete="handleDelete"
             >
             </todo-item>
@@ -72,7 +72,7 @@
         },
         methods: {
             handleSubmit() {
-                if (this.inputValue !== "") {
+                if (this.inputValue) {
                     this.todo.push({text: this.inputValue});
                     this.inputValue = '';
                 }
@@ -90,6 +90,15 @@
     setTimeout(function () {
         app.$data.message = 'Hello Vue v2.5.17!'
     }, 2000)
+</script>
+<script>
+    for (var i = 0; i < 5; ++i) {
+        (function(t){
+            setTimeout(function () {
+                console.log(t + ' ');
+            }, 100);
+        })(i)
+    }
 </script>
 </body>
 </html>

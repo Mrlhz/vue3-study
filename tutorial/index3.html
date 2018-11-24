@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件化应用构建</title>
+</head>
+
+<body>
+  <div id="app">
+    <div v-if="loginType === 'username'">
+      <label>Username</label>
+      <input placeholder="Enter your username" key="username-input">
+    </div>
+    <div v-else>
+      <label>Email</label>
+      <input placeholder="Enter your email address" key="email-input">
+    </div>
+    <button @click="toggle">toggle</button>
+  </div>
+  <script src="../vue.js"></script>
+  <script>
+    /**
+     * 条件与循环
+     * v-if
+     * v-for
+     */
+
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        todos: [{
+            id: 0,
+            text: '学习 JavaScript'
+          },
+          {
+            id: 1,
+            text: '学习 Vue'
+          },
+          {
+            id: 2,
+            text: '整个牛项目'
+          }
+        ],
+        loginType: 'username'
+      },
+      methods: {
+        toggle: function () {
+          console.log(this.set)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
