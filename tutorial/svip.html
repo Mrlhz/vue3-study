@@ -14,9 +14,9 @@
     <div class="page-buy">
       <div class="tab-header">
         <div class="tab-header-btn-box">
-          <div v-for="vip in vips"
-               :class="['tab-header-btnbox', 'tab-header-svip', isActive ? 'tab-header-selected':'']" 
-               @click="toggle">
+          <div v-for="(vip, index) in vips"
+               :class="['tab-header-btnbox', 'tab-header-svip', active === index ? 'tab-header-selected':'']" 
+               @click="toggle(vip,index)">
             <span class="icon"></span>
             <span>{{ vip.info }}</span>
           </div>
@@ -30,9 +30,9 @@
           </p>
           <ul class="product-list">
             <li 
-                v-for="s in svip"
-                :class="['product-list-item', 'product-list-item-selected']"
-                @click="selected"
+                v-for="(s,index) in svip"
+                :class="['product-list-item', idx === index ? 'product-list-item-selected':'']"
+                @click="selected(index)"
                 >
               <p class="product-list-item-tit">
                 <span class="time">{{s.time}}</span>
@@ -51,7 +51,7 @@
         <div class="buy-info">
           <span>应付金额：</span>
           <span style="color: rgb(255, 125, 39);">￥</span>
-          <span class="buy-info-price">298</span>
+          <span class="buy-info-price">{{ getallPrice }}</span>
           <p class="buy-btn">去支付</p>
         </div>
       </div>
@@ -71,19 +71,27 @@
         {id: 2, time: '6个月', se: '', price: '￥162', originalPrice: '￥180'},
         {id: 3, time: '1年', se: '', price: '￥298', originalPrice: '￥298'}
       ],
-        isActive: false
+        active: -1,
+        idx: -1
       },
       methods: {
-        toggle() {
-          console.log(app)
+        toggle(vip,index) {
+          app.$data.active = index
         },
-        selected() {
-          console.log(this)
+        selected(index) {
+          app.$data.idx = index
         }
       },
       computed: {
         getallPrice() {
-          // return allPrice;
+          var allPrice = '';
+          this.svip.map( (item, index) => {
+            if(this.idx === index){
+              console.log(item.price.substr(1))
+              allPrice = item.price.substr(1);
+            }
+          })
+          return allPrice;
         },
         classObject() {
           // return !this.isActive;
