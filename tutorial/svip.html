@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>svip</title>
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="page-buy">
+      <div class="tab-header">
+        <div class="tab-header-btn-box">
+          <div v-for="vip in vips"
+               :class="['tab-header-btnbox', 'tab-header-svip', isActive ? 'tab-header-selected':'']" 
+               @click="toggle">
+            <span class="icon"></span>
+            <span>{{ vip.info }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="content-box">
+        <div class="content">
+          <p class="content-tit">
+            <span>选择开通时长</span>
+            <span class="instructions">价格说明</span>
+          </p>
+          <ul class="product-list">
+            <li 
+                v-for="s in svip"
+                :class="['product-list-item', 'product-list-item-selected']"
+                @click="selected"
+                >
+              <p class="product-list-item-tit">
+                <span class="time">{{s.time}}</span>
+                <span class="se">{{s.se}}</span>
+                <span class="price">{{s.price}}</span>
+                <span class="originalPrice">{{s.originalPrice}}</span>
+                <span class="selected-icon"></span>
+              </p>
+              <span class="chaozhi-icon"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="perch"></div>
+      <div class="buy-info-box">
+        <div class="buy-info">
+          <span>应付金额：</span>
+          <span style="color: rgb(255, 125, 39);">￥</span>
+          <span class="buy-info-price">298</span>
+          <p class="buy-btn">去支付</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        vips: [
+          {id: 0,type: 'vip',info: '普通会员'},{id: 1,type: 'vip',info: '超级会员'}
+        ],
+      svip: [
+        {id: 0, time: '1个月', se: '', price: '￥30', originalPrice: ''},
+        {id: 1, time: '3个月', se: '', price: '￥86', originalPrice: '￥90'},
+        {id: 2, time: '6个月', se: '', price: '￥162', originalPrice: '￥180'},
+        {id: 3, time: '1年', se: '', price: '￥298', originalPrice: '￥298'}
+      ],
+        isActive: false
+      },
+      methods: {
+        toggle() {
+          console.log(app)
+        },
+        selected() {
+          console.log(this)
+        }
+      },
+      computed: {
+        getallPrice() {
+          // return allPrice;
+        },
+        classObject() {
+          // return !this.isActive;
+        }
+      },
+      created() {
+        console.log(this.isActive)
+        // this.isActive = this.isActive ? false: true
+      },
+    })
+  </script>
+</body>
+
+</html>
