@@ -15,7 +15,7 @@
       <div class="tab-header">
         <div class="tab-header-btn-box">
           <div v-for="(vip, index) in vips"
-               :class="['tab-header-btnbox', 'tab-header-svip', active === index ? 'tab-header-selected':'']" 
+               :class="['tab-header-btnbox', 'tab-header-svip', tab === index ? 'tab-header-selected':'']" 
                @click="toggle(vip,index)">
             <span class="icon"></span>
             <span>{{ vip.info }}</span>
@@ -30,7 +30,7 @@
           </p>
           <ul class="product-list">
             <li 
-                v-for="(s,index) in svip"
+                v-for="(s,index) in showList"
                 :class="['product-list-item', idx === index ? 'product-list-item-selected':'']"
                 @click="selected(index)"
                 >
@@ -63,42 +63,46 @@
       el: '#app',
       data: {
         vips: [
-          {id: 0,type: 'vip',info: '普通会员'},{id: 1,type: 'vip',info: '超级会员'}
+          {id: 0,type: 'simple',info: '普通会员'},{id: 1,type: 'super',info: '超级会员'}
         ],
-      svip: [
-        {id: 0, time: '1个月', se: '', price: '￥30', originalPrice: ''},
-        {id: 1, time: '3个月', se: '', price: '￥86', originalPrice: '￥90'},
-        {id: 2, time: '6个月', se: '', price: '￥162', originalPrice: '￥180'},
-        {id: 3, time: '1年', se: '', price: '￥298', originalPrice: '￥298'}
-      ],
-        active: -1,
-        idx: -1
+        svip: [
+          { id: 0, type: 'super', time: '1个月', se: '', price: '￥30', originalPrice: '' },
+          { id: 1, type: 'super', time: '3个月', se: '', price: '￥86', originalPrice: '￥90' },
+          { id: 2, type: 'super', time: '6个月', se: '', price: '￥162', originalPrice: '￥180' },
+          { id: 3, type: 'super', time: '1年', se: '', price: '￥298', originalPrice: '￥298' },
+          { id: 4, type: 'simple', time: '1个月', se: '', price: '￥10', originalPrice: '' },
+          { id: 5, type: 'simple', time: '3个月', se: '', price: '￥30', originalPrice: '' },
+          { id: 6, type: 'simple', time: '6个月', se: '', price: '￥60', originalPrice: '' },
+          { id: 7, type: 'simple', time: '1年', se: '', price: '￥96', originalPrice: '￥120' }
+        ],
+        tab: 1,
+        currentTab: 'super',
+        idx: 0
       },
       methods: {
         toggle(vip,index) {
-          app.$data.active = index
+          this.tab = index
+          this.currentTab = vip.type
         },
         selected(index) {
           app.$data.idx = index
         }
       },
       computed: {
+        showList() {
+          return this.svip.filter( item => item.type === this.currentTab)
+        },
         getallPrice() {
           var allPrice = '';
-          this.svip.map( (item, index) => {
+          this.showList.map( (item, index) => {
             if(this.idx === index){
-              console.log(item.price.substr(1))
               allPrice = item.price.substr(1);
             }
           })
-          return allPrice;
-        },
-        classObject() {
-          // return !this.isActive;
+          return allPrice || 0;
         }
       },
       created() {
-        console.log(this.isActive)
         // this.isActive = this.isActive ? false: true
       },
     })
