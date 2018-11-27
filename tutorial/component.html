@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态组件</title>
+  <style>
+    .tab {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <button v-for="(tab,index) in tabs" :key="tab" @click="handleBtnClick(tab)">{{ tab }}
+      </button>
+    </div>
+    <component :is="currentTabComponent" class="tab"></component>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script>
+    Vue.component('tab-home', {
+      template: '<div>Home component</div>'
+    })
+    Vue.component('tab-posts', {
+      template: '<div>Posts component</div>'
+    })
+    Vue.component('tab-archive', {
+      template: '<div>Archive component</div>'
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        currentTab: 'Home',
+        tabs: ['Home', 'Posts', 'Archive']
+      },
+      methods: {
+        handleBtnClick(tab) {
+          this.currentTab = tab
+        }
+      },
+      computed: {
+        currentTabComponent() {
+          return `tab-${this.currentTab.toLowerCase()}`
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
