@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>抛物线</title>
+  <link rel="stylesheet" href="../css/animation-parabola.css">
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <button @click="handleMoveUp" class="delay-btn">动起来</button>
+    </div>
+    <div class="round-wrap">
+      <div :class="['round', action ? 'animation-parabola': '']"></div>
+    </div>
+  </div>
+  <script src="../vue@v2.6.10.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      components: {},
+      data() {
+        return {
+          type: 'parabola',
+          action: false,
+          timer: null
+        }
+      },
+      methods: {
+        handleMoveUp() {
+          this.action = !this.action
+          this.timer = setTimeout(() => {
+            this.action = false
+          }, 4000)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

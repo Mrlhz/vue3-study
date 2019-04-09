@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS3 Transition Demo状态表换 -- 有无 transition效果对比</title>
+  <link rel="stylesheet" href="../css/transition.css">
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            {{title}}
+          </a>
+
+          <div class="navbar-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <h3 class="title">CSS3 Transition Demo</h3>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">状态表换 -- 有无&nbsp;<span class="tag is-info">transition</span>&nbsp;效果对比</p>
+          </header>
+          <div class="card-content">
+            <div class="columns">
+              <div class="column">
+                <div class="content">
+                  <div class="demo-bg">
+                    <div class="demo-item demo-item-1" :class="{active: isActive}">
+                      1
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="content">
+                  <div class="demo-bg">
+                    <div class="demo-item demo-item-2" :class="{active: isActive}">2</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <a class="card-footer-item" @click="runDemo">运行 DEMO</a>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="../vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        title: 'Web UI Development Handbook',
+        isActive: false
+      },
+      methods: {
+        runDemo(evt) {
+          this.isActive = !this.isActive;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
