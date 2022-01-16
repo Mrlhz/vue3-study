@@ -17,12 +17,13 @@
       height: 100px;
       border-radius: 10px;
       background-color: #0db2e7;
+      cursor: move;
     }
 
     .box {
       width: 50px;
       height: 50px;
-      cursor: move;
+      cursor: pointer;
       background-color: #fff;
     }
   </style>
@@ -37,6 +38,7 @@
     <div>left: {{ left }}</div>
     <div>clientX: {{ clientX }}</div>
     <div>clientY: {{ clientY }}</div>
+    <div>isClick: {{ isClick }}</div>
   </div>
   <script src="../vue@v2.6.10.js"></script>
   <script>
@@ -52,6 +54,12 @@
           left: 100,
           clientX: 0,
           clientY: 0,
+          temp: {
+            x: 0,
+            x1: 0,
+            y1: 0,
+            y2: 0
+          }
         }
       },
       computed: {
@@ -61,24 +69,37 @@
             left: `${this.left}px`,
           }
         },
+        isClick() {
+          const { x1, y1, x2, y2 } = this.temp
+          const v = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+          return v >= 0 && v <= 2
+        }
       },
-      created() {},
+      created() {
+        this.init()
+        window.onresize = debounce(this.init, 150)
+        // window.addEventListener('resize', (e) => {
+        //   console.log(e)
+        //   this.init()
+        // })
+      },
       mounted() {
 
       },
       methods: {
+        init() {
+          this.top = 100
+          this.left = (document.documentElement.clientWidth || document.body.clientWidth) - 100 - 10
+        },
         handleClick(e) {
+          if (!this.isClick) return
           console.log(e)
         },
         mousedown(e) {
-          const {
-            offsetLeft,
-            offsetTop
-          } = this.$refs.dragBoxRef
-          console.log({
-            offsetLeft,
-            offsetTop
-          })
+          this.temp.x1 = e.clientX
+          this.temp.y1 = e.clientY
+          const { offsetLeft, offsetTop } = this.$refs.dragBoxRef
+          console.log({ offsetLeft, offsetTop })
           const x = e.clientX - offsetLeft
           const y = e.clientY - offsetTop
           document.onmousemove = (event) => {
@@ -86,7 +107,9 @@
           }
 
           // 释放鼠标
-          document.onmouseup = function end() {
+          document.onmouseup = (e) => {
+            this.temp.x2 = e.clientX
+            this.temp.y2 = e.clientY
             document.onmousemove = null
             document.onmouseup = null
           }
@@ -97,10 +120,7 @@
 
           const winWidth = document.documentElement.clientWidth || document.body.clientWidth
           const winHeight = document.documentElement.clientHeight || document.body.clientHeight
-          const {
-            offsetWidth,
-            offsetHeight
-          } = this.$refs.dragBoxRef
+          const { offsetWidth, offsetHeight } = this.$refs.dragBoxRef
           const maxWidth = winWidth - offsetWidth
           const maxHeight = winHeight - offsetHeight - 5
           const left = Math.max(e.clientX - x, 0)
@@ -110,6 +130,17 @@
         },
       },
     })
+
+    function debounce(func, wait) {
+      let timer = null
+      return function(...args) {
+        const self = this
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          func.apply(self, args) // this === self
+        }, wait)
+      }
+    }
   </script>
 </body>
 

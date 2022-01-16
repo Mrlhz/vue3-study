@@ -11,8 +11,16 @@
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <!-- HTML DOM 元素对象 https://www.runoob.com/jsref/dom-obj-all.html -->
+<!-- https://codepen.io/mrlhz/pen/wVgWBR -->
 <body>
   <div id="app">
+      <h2>制作九宫格</h2>
+      <p>效果要求:(弹框必须使用模态框实现)</p>
+      <ol>
+        <li>点击任何一个单元格,都可以弹框返回当前单元格的数据</li>
+        <li>点击汇总返回,将全部单元格的数据连接成为一个字符串</li>
+        <li>拖动单元格,单元格之间可以相互换位,点击汇总,将换位后成为一个字符串,弹框显示</li>
+      </ol>
     <div class="wrap">
       <template v-for="(item, index) in list">
         <div
@@ -45,7 +53,8 @@
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script>
     /*
-    * @todo 在firfox 有bug
+    * @todo 在firfox 有bug--无法拖拽
+    * 
     */
     var app = new Vue({
       el: '#app',
