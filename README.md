@@ -1,27 +1,30 @@
-# vue
-vue学习笔记
 
-## 文档
-- [Vue.js](https://cn.vuejs.org/)
-- [Vue CLI 3🛠️ Vue.js 开发的标准工具](https://cli.vuejs.org/zh/)
-- [cube-ui](https://didi.github.io/cube-ui/#/zh-CN)
 
-- [Element](https://github.com/ElemeFE/element) 一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
-- [iView](https://github.com/iview)--[开始使用](https://www.iviewui.com/)
-- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
----
-- [vux](https://github.com/airyland/vux) 一个凑合的 Vue.js 移动端 UI 组件库
-
-## Mobile
-- [Cube UI](https://didi.github.io/cube-ui/#/zh-CN)基于 Vue.js 实现的精致移动端组件库
-
-## 一个简单的HTTP请求和响应服务
-- [httpbin](http://httpbin.org)
-- [Swagger](https://swagger.io/)The Best APIs are Built with Swagger Tools
-
----
-
-关于git提示“warning: LF will be replaced by CRLF”
+```json
+  "private": true,
 ```
-git config --global core.autocrlf true
+
+
+2. 
+```sh
+pnpm install typescript esbuild minimist -D -w
+````
+
+不加`-w`
+
+ ERR_PNPM_ADDING_TO_ROOT  Running this command will add the dependency to the workspace root, which might not be what you want - if you really meant it, make it explicit by running this command again with the -w flag (or --workspace-root). If you don't want to see this warning anymore, you may set the ignore-workspace-root-check setting to true.
+
+- [pnpm 安装遇到错误_pnpm安装失败-CSDN博客](https://blog.csdn.net/weixin_63115449/article/details/143868047)
+
+3.
+
+```sh
+npx tsc --init
 ```
+
+
+```sh
+pnpm install @vue/shared --workspace --filter @vue/reactivity
+```
+
+- [工作空间（Workspace） | pnpm中文文档 | pnpm中文网](https://www.pnpm.cn/workspaces)
