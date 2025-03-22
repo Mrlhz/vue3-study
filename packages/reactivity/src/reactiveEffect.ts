@@ -27,9 +27,25 @@ export function track(target, key) {
         (dep = createDep(() => depsMap.delete(key), key))
       );
     }
-    
+
     trackEffect(activeEffect, dep)
     console.log(targetMap)
   }
 }
 
+// VUE-响应式实现原理 -派发通知(trigger)
+export function trigger(target, key, value, oldValue) {
+
+  const depsMap = targetMap.get(target);
+  if (!depsMap) {
+    return
+  }
+
+  const dep = depsMap.get(key);
+
+  for (const effect of dep.keys()) {
+    if (effect.scheduler) {
+      effect.scheduler()
+    }
+  }
+}

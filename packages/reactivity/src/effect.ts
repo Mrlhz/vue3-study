@@ -13,11 +13,12 @@ export function effect(fn, options?) {
 export let activeEffect;
 class ReactiveEffect {
   _trackId = 0;
+  _depsLength = 0;
   deps = [];
   public active = true; // 创建的effect是响应式的
   // fn用户编写的函数
   // 如果fn中依赖的数据发生变化后,需要重新调用->run()
-  constructor(public fn, public scheduler) {}
+  constructor(public fn, public scheduler) { }
 
   run() {
     if (!this.active) {
@@ -40,5 +41,5 @@ class ReactiveEffect {
 export function trackEffect(effect, dep) {
   dep.set(effect, effect._trackId)
 
-  effect.deps[effect.depsLength++] = dep;
+  effect.deps[effect._depsLength++] = dep;
 }

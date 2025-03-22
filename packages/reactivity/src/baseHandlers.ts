@@ -1,5 +1,5 @@
 import { ReactiveFlags } from './constants';
-import { track } from './reactiveEffect';
+import { track, trigger } from './reactiveEffect';
 
 export const mutableHandlers: ProxyHandler<any> = {
   get(target, key, receiver) {
@@ -13,8 +13,12 @@ export const mutableHandlers: ProxyHandler<any> = {
     return Reflect.get(target, key, receiver);
   },
   set(target, key, value, receiver) {
+    const oldValue = target[key];
+    const result = Reflect.set(target, key, value, receiver);
 
-    Reflect.set(target, key, value, receiver);
+    if (!Object.is(value, oldValue)) {
+      trigger(target, key, value, oldValue)
+    }
     return true
   }
 }
