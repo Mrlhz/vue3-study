@@ -28,3 +28,9 @@ pnpm install @vue/shared --workspace --filter @vue/reactivity
 ```
 
 - [工作空间（Workspace） | pnpm中文文档 | pnpm中文网](https://www.pnpm.cn/workspaces)
+
+- [看完这篇文章，不再害怕Vue3的源码（一）-阿里云开发者社区](https://developer.aliyun.com/article/1426268)
+- [Vue进阶之Vue3源码解析（一）-CSDN博客](https://blog.csdn.net/qq_34306228/article/details/145948043)
+- [Document](http://127.0.0.1:5500/packages/reactivity/dist/index.html)
+- [haiweilian/vnext-analysis: 🚀 Vue3 体系源码分析、流程标记、思维导图、Mini 版实现。](https://github.com/haiweilian/vnext-analysis)
+- [安装 | pnpm](https://pnpm.io/zh/installation)
